@@ -2,7 +2,8 @@ from turtle import Turtle, Screen, sys, math
 
 proceed = False
 while not proceed:
-    textFile = input("Please input the name of the text file: ").strip()
+    #textFile = input("Please input the name of the text file: ").strip()
+    textFile = 'testfile.txt' #delete this before submit and uncomment the line above 
     try:
         TESTFILE = open(textFile, 'r')
         proceed = True
@@ -16,6 +17,7 @@ drawArea.bgcolor('white')
 drawArea.setup(height = 450, width = 450)
 
 TOTAL = 0 
+skipStop = False
 Sam = Turtle()
 Sam.speed(0)
 Sam.penup()
@@ -28,20 +30,18 @@ for line in TESTFILE:
         color = parts[0]
         x = int(parts[1])
         y = int(parts[2])
-        totalDist = 
-
-        '''
-        print(Sam.distance(x,y))
-        totalxy = Sam.distance(x,y)
-        TOTAL += totalxy
-        '''
         Sam.color(color)
+        if not skipStop:
+            print(f'Distance: {Sam.distance(x,y)}') #https://docs.python.org/3/tutorial/inputoutput.html
+            TOTAL += Sam.distance(x,y)
+        else:
+            skipStop = False
         Sam.goto(x,y)
-        
         Sam.pendown()
     elif (len(parts) == 1):
+        skipStop = True
         Sam.penup()
-print(TOTAL)
+print(f'Total: {TOTAL}')
 
 def close_window():
     drawArea.bye()
